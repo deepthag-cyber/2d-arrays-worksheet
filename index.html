@@ -7,208 +7,132 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #f7f8fa;
-  --surface: #ffffff;
-  --surface2: #f0f2f6;
-  --border: #e2e6ed;
-  --accent: #2563eb;
-  --accent-light: #eff4ff;
-  --accent2: #7c3aed;
-  --accent2-light: #f5f0ff;
-  --green: #059669;
-  --green-light: #ecfdf5;
-  --amber: #d97706;
-  --amber-light: #fffbeb;
-  --red: #dc2626;
-  --red-light: #fef2f2;
-  --text: #0f172a;
-  --text2: #475569;
-  --text3: #94a3b8;
-  --mono: 'JetBrains Mono', monospace;
-  --sans: 'Inter', system-ui, sans-serif;
-  --radius: 10px;
-  --shadow: 0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.05);
+  --bg:#f7f8fa; --surface:#fff; --surface2:#f0f2f6; --border:#e2e6ed;
+  --accent:#2563eb; --accent-light:#eff4ff;
+  --accent2:#7c3aed; --accent2-light:#f5f0ff;
+  --green:#059669; --green-light:#ecfdf5;
+  --amber:#d97706; --amber-light:#fffbeb;
+  --red:#dc2626; --red-light:#fef2f2;
+  --correct:#059669; --correct-light:#ecfdf5;
+  --wrong:#dc2626; --wrong-light:#fef2f2;
+  --text:#0f172a; --text2:#475569; --text3:#94a3b8;
+  --mono:'JetBrains Mono',monospace; --sans:'Inter',system-ui,sans-serif;
+  --radius:10px; --shadow:0 1px 3px rgba(0,0,0,.07),0 1px 2px rgba(0,0,0,.05);
 }
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: var(--sans); background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.6; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:15px;line-height:1.6}
 
-/* ── TOP BAR ── */
-.topbar {
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  padding: 0 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 56px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  box-shadow: var(--shadow);
-}
-.topbar-title { font-weight: 600; font-size: 15px; color: var(--text); display: flex; align-items: center; gap: 10px; }
-.subject-pill { background: var(--accent-light); color: var(--accent); font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.04em; }
-.mode-toggle { display: flex; align-items: center; gap: 8px; background: var(--surface2); border-radius: 8px; padding: 4px; }
-.mode-btn { font-family: var(--sans); font-size: 12px; font-weight: 500; padding: 5px 14px; border: none; border-radius: 6px; cursor: pointer; background: transparent; color: var(--text2); transition: all 0.15s; }
-.mode-btn.active { background: var(--surface); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+/* TOP BAR */
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100;box-shadow:var(--shadow)}
+.topbar-title{font-weight:600;font-size:15px;color:var(--text);display:flex;align-items:center;gap:10px}
+.subject-pill{background:var(--accent-light);color:var(--accent);font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;letter-spacing:.04em}
+.mode-toggle{display:flex;align-items:center;gap:4px;background:var(--surface2);border-radius:8px;padding:4px}
+.mode-btn{font-family:var(--sans);font-size:12px;font-weight:500;padding:5px 14px;border:none;border-radius:6px;cursor:pointer;background:transparent;color:var(--text2);transition:all .15s}
+.mode-btn.active{background:var(--surface);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.1)}
 
-/* ── TABS ── */
-.tab-bar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 24px; display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; }
-.tab-bar::-webkit-scrollbar { display: none; }
-.tab-btn { font-family: var(--sans); font-size: 13px; font-weight: 500; padding: 14px 18px; border: none; background: transparent; color: var(--text2); cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; transition: all 0.15s; }
-.tab-btn:hover { color: var(--text); }
-.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
-.tab-num { display: inline-block; width: 20px; height: 20px; border-radius: 50%; background: var(--surface2); font-size: 11px; font-weight: 600; text-align: center; line-height: 20px; margin-right: 6px; }
-.tab-btn.active .tab-num { background: var(--accent-light); color: var(--accent); }
+/* TABS */
+.tab-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;display:flex;overflow-x:auto;scrollbar-width:none}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab-btn{font-family:var(--sans);font-size:13px;font-weight:500;padding:14px 18px;border:none;background:transparent;color:var(--text2);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s}
+.tab-btn:hover{color:var(--text)}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tab-num{display:inline-block;width:20px;height:20px;border-radius:50%;background:var(--surface2);font-size:11px;font-weight:600;text-align:center;line-height:20px;margin-right:6px}
+.tab-btn.active .tab-num{background:var(--accent-light);color:var(--accent)}
 
-/* ── LAYOUT ── */
-.page { max-width: 900px; margin: 0 auto; padding: 32px 24px 80px; }
-.panel { display: none; }
-.panel.active { display: block; }
+/* LAYOUT */
+.page{max-width:1100px;margin:0 auto;padding:32px 24px 80px}
+.panel{display:none}.panel.active{display:block}
 
-/* ── SECTION HEADER ── */
-.section-header { margin-bottom: 24px; }
-.section-header h2 { font-size: 22px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
-.section-header p { color: var(--text2); font-size: 14px; }
+/* SIDE-BY-SIDE */
+.side-by-side{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;margin:20px 0}
+.side-by-side.wide-code{grid-template-columns:55% 1fr}
+@media(max-width:750px){.side-by-side,.side-by-side.wide-code{grid-template-columns:1fr}}
 
-/* ── HINT BOX ── */
-.hint { background: var(--accent-light); border-left: 3px solid var(--accent); border-radius: 0 var(--radius) var(--radius) 0; padding: 12px 16px; font-size: 13px; color: #1e40af; margin: 16px 0; line-height: 1.5; }
-.hint-amber { background: var(--amber-light); border-left: 3px solid var(--amber); border-radius: 0 var(--radius) var(--radius) 0; padding: 12px 16px; font-size: 13px; color: #92400e; margin: 16px 0; }
-.hint-green { background: var(--green-light); border-left: 3px solid var(--green); border-radius: 0 var(--radius) var(--radius) 0; padding: 12px 16px; font-size: 13px; color: #065f46; margin: 16px 0; }
+/* SECTION HEADER */
+.section-header{margin-bottom:24px}
+.section-header h2{font-size:22px;font-weight:600;color:var(--text);margin-bottom:6px}
+.section-header p{color:var(--text2);font-size:14px}
 
-/* ── CODE BLOCK ── */
-.code-label { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; color: var(--text3); text-transform: uppercase; margin: 20px 0 6px; }
-.code-label span { display: inline-block; padding: 2px 8px; border-radius: 4px; }
-.lbl-pseudo { background: var(--accent-light); color: var(--accent); }
-.lbl-py { background: var(--green-light); color: var(--green); }
-pre {
-  background: #0f172a;
-  color: #e2e8f0;
-  font-family: var(--mono);
-  font-size: 13px;
-  line-height: 1.7;
-  padding: 18px 20px;
-  border-radius: var(--radius);
-  overflow-x: auto;
-  margin-bottom: 16px;
-}
-.kw { color: #93c5fd; }
-.cm { color: #64748b; font-style: italic; }
-.st { color: #6ee7b7; }
-.nm { color: #fbbf24; }
-.fn { color: #c4b5fd; }
+/* HINTS */
+.hint{background:var(--accent-light);border-left:3px solid var(--accent);border-radius:0 var(--radius) var(--radius) 0;padding:12px 16px;font-size:13px;color:#1e40af;margin:16px 0;line-height:1.5}
+.hint-amber{background:var(--amber-light);border-left:3px solid var(--amber);border-radius:0 var(--radius) var(--radius) 0;padding:12px 16px;font-size:13px;color:#92400e;margin:12px 0}
+.hint-green{background:var(--green-light);border-left:3px solid var(--green);border-radius:0 var(--radius) var(--radius) 0;padding:12px 16px;font-size:13px;color:#065f46;margin:12px 0}
 
-/* ── EXERCISE CARD ── */
-.exercise {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 20px 24px;
-  margin: 24px 0;
-}
-.exercise-title { font-size: 13px; font-weight: 600; color: var(--accent2); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-.exercise-title::before { content: "✏️"; font-size: 14px; }
-.ex-label { font-size: 13px; color: var(--text2); margin-bottom: 12px; }
+/* CODE */
+.code-label{font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--text3);text-transform:uppercase;margin:16px 0 5px}
+.code-label span{display:inline-block;padding:2px 8px;border-radius:4px}
+.lbl-pseudo{background:var(--accent-light);color:var(--accent)}
+.lbl-py{background:var(--green-light);color:var(--green)}
+pre{background:#0f172a;color:#e2e8f0;font-family:var(--mono);font-size:12.5px;line-height:1.75;padding:16px 18px;border-radius:var(--radius);overflow-x:auto;margin-bottom:0}
+.kw{color:#93c5fd}.cm{color:#64748b;font-style:italic}.st{color:#6ee7b7}.nm{color:#fbbf24}.fn{color:#c4b5fd}
 
-/* ── GRID DIAGRAM ── */
-.grid-diagram { display: inline-grid; gap: 0; border: 2px solid var(--border); border-radius: 6px; overflow: hidden; margin: 12px 0; }
-.grid-cell {
-  width: 90px; height: 64px;
-  border: 1px solid var(--border);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  background: var(--surface);
-  position: relative;
-}
-.cell-idx { font-family: var(--mono); font-size: 10px; color: var(--text3); position: absolute; top: 4px; left: 0; right: 0; text-align: center; }
-.cell-val { font-family: var(--mono); font-size: 17px; font-weight: 500; }
-.cell-blank input {
-  width: 60px; font-family: var(--mono); font-size: 15px; text-align: center;
-  border: none; border-bottom: 2px solid var(--accent); outline: none;
-  background: transparent; color: var(--text); padding: 2px;
-}
-.cell-blank input:focus { border-bottom-color: var(--accent2); }
-.cell-answer { color: var(--red); font-weight: 600; }
+/* EXERCISE CARD */
+.exercise{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 22px;margin:20px 0}
+.exercise-title{font-size:13px;font-weight:600;color:var(--accent2);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.exercise-title::before{content:"✏️";font-size:14px}
+.ex-label{font-size:13px;color:var(--text2);margin-bottom:10px}
 
-/* ── TRACE TABLE ── */
-.trace-wrap { overflow-x: auto; margin: 12px 0; }
-table.trace { border-collapse: collapse; width: 100%; font-size: 13px; }
-table.trace th {
-  background: var(--surface2); padding: 8px 12px;
-  text-align: center; font-family: var(--mono); font-size: 12px; font-weight: 500;
-  border: 1px solid var(--border); color: var(--text2); white-space: nowrap;
-}
-table.trace td {
-  border: 1px solid var(--border); padding: 6px 10px; text-align: center;
-  font-family: var(--mono); font-size: 13px; white-space: nowrap;
-}
-table.trace tr:nth-child(even) td { background: #fafbfc; }
-table.trace td.fixed { color: var(--text2); background: #f8f9fb; }
-table.trace td.blank input {
-  width: 100%; min-width: 70px; font-family: var(--mono); font-size: 13px;
-  text-align: center; border: none; border-bottom: 2px solid #cbd5e1;
-  outline: none; background: transparent; color: var(--text); padding: 1px;
-}
-table.trace td.blank input:focus { border-bottom-color: var(--accent); }
-table.trace td.answer-cell { color: var(--red); font-weight: 500; background: #fff8f8; }
+/* GRID */
+.grid-diagram{display:inline-grid;gap:0;border:2px solid var(--border);border-radius:6px;overflow:hidden;margin:10px 0}
+.grid-cell{width:80px;height:62px;border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--surface);position:relative;transition:background .2s}
+.cell-idx{font-family:var(--mono);font-size:10px;color:var(--text3);position:absolute;top:4px;left:0;right:0;text-align:center}
+.cell-val{font-family:var(--mono);font-size:16px;font-weight:500}
+.cell-blank input{width:55px;font-family:var(--mono);font-size:14px;text-align:center;border:none;border-bottom:2px solid var(--accent);outline:none;background:transparent;color:var(--text);padding:2px}
+.cell-blank input:focus{border-bottom-color:var(--accent2)}
+.cell-answer{color:var(--red);font-weight:600;display:none}
+.cell-fb{font-size:11px;font-weight:700;position:absolute;bottom:3px;left:0;right:0;text-align:center;display:none}
+.cell-correct .cell-fb{display:block;color:var(--correct)}
+.cell-wrong .cell-fb{display:block;color:var(--wrong)}
+.cell-correct{background:var(--correct-light)!important}
+.cell-wrong{background:var(--wrong-light)!important}
 
-/* ── SHORT ANSWER ── */
-.short-answer-q { margin: 16px 0; }
-.short-answer-q p { font-size: 14px; color: var(--text); margin-bottom: 8px; }
-.short-answer-q .answer-line {
-  width: 100%; border: none; border-bottom: 1.5px solid var(--border); outline: none;
-  font-family: var(--sans); font-size: 14px; padding: 6px 0; background: transparent;
-  color: var(--text); display: block; margin: 4px 0;
-}
-.short-answer-q .answer-line:focus { border-bottom-color: var(--accent); }
-.short-answer-ans { background: var(--red-light); border-left: 3px solid var(--red); border-radius: 0 6px 6px 0; padding: 10px 14px; font-size: 13px; color: #7f1d1d; margin-top: 6px; display: none; }
+/* TRACE TABLE */
+.trace-wrap{overflow-x:auto;margin:10px 0}
+table.trace{border-collapse:collapse;width:100%;font-size:12.5px}
+table.trace th{background:var(--surface2);padding:7px 10px;text-align:center;font-family:var(--mono);font-size:11.5px;font-weight:500;border:1px solid var(--border);color:var(--text2);white-space:nowrap}
+table.trace td{border:1px solid var(--border);padding:5px 8px;text-align:center;font-family:var(--mono);font-size:12.5px;white-space:nowrap}
+table.trace tr:nth-child(even) td{background:#fafbfc}
+table.trace td.fixed{color:var(--text2);background:#f8f9fb}
+table.trace td.blank{position:relative;min-width:80px}
+table.trace td.blank input{width:90%;font-family:var(--mono);font-size:12px;text-align:center;border:none;border-bottom:2px solid #cbd5e1;outline:none;background:transparent;color:var(--text);padding:1px}
+table.trace td.blank input:focus{border-bottom-color:var(--accent)}
+table.trace td.t-correct{background:var(--correct-light)}
+table.trace td.t-wrong{background:var(--wrong-light)}
+table.trace td.t-correct::after{content:"✓";color:var(--correct);font-size:11px;margin-left:4px}
+table.trace td.t-wrong .reveal-ans{color:var(--wrong);font-size:11px;display:block;font-weight:600}
 
-/* ── CHECK ANSWER BTN ── */
-.check-btn {
-  font-family: var(--sans); font-size: 13px; font-weight: 500;
-  padding: 8px 18px; border-radius: 7px; border: 1.5px solid var(--accent);
-  background: transparent; color: var(--accent); cursor: pointer; margin-top: 14px; transition: all 0.15s;
-}
-.check-btn:hover { background: var(--accent-light); }
+/* SHORT ANSWER */
+.short-answer-q{margin:14px 0;padding:12px 14px;background:var(--surface);border:1px solid var(--border);border-radius:8px}
+.short-answer-q p{font-size:14px;color:var(--text);margin-bottom:8px}
+.sa-input{width:100%;border:none;border-bottom:1.5px solid var(--border);outline:none;font-family:var(--sans);font-size:13px;padding:6px 0;background:transparent;color:var(--text);display:block;margin:4px 0}
+.sa-input:focus{border-bottom-color:var(--accent)}
+.sa-btn{font-family:var(--sans);font-size:12px;font-weight:500;padding:6px 14px;border-radius:6px;border:1.5px solid var(--accent);background:transparent;color:var(--accent);cursor:pointer;margin-top:8px;transition:all .15s}
+.sa-btn:hover{background:var(--accent-light)}
+.sa-feedback{margin-top:8px;padding:8px 12px;border-radius:6px;font-size:13px;display:none}
+.sa-feedback.correct{background:var(--correct-light);border-left:3px solid var(--correct);color:#064e3b}
+.sa-feedback.wrong{background:var(--wrong-light);border-left:3px solid var(--wrong);color:#7f1d1d}
+.model-ans{background:var(--red-light);border-left:3px solid var(--red);border-radius:0 6px 6px 0;padding:9px 13px;font-size:13px;color:#7f1d1d;margin-top:8px;display:none}
 
-/* ── DIVIDER ── */
-.divider { height: 1px; background: var(--border); margin: 32px 0; }
+/* CHECK BUTTON */
+.check-btn{font-family:var(--sans);font-size:13px;font-weight:500;padding:8px 20px;border-radius:7px;border:1.5px solid var(--accent);background:transparent;color:var(--accent);cursor:pointer;margin-top:12px;transition:all .15s;display:inline-block}
+.check-btn:hover{background:var(--accent-light)}
 
-/* ── PROGRESS ── */
-.progress-bar-wrap { height: 4px; background: var(--border); border-radius: 2px; margin: 12px 0 0; }
-.progress-bar { height: 4px; background: var(--accent); border-radius: 2px; transition: width 0.3s; }
-.progress-label { font-size: 12px; color: var(--text3); margin-top: 4px; }
+/* DIVIDER */
+.divider{height:1px;background:var(--border);margin:28px 0}
 
-/* ── ANSWER KEY MODE ── */
-body.answer-mode .cell-blank input { display: none; }
-body.answer-mode .cell-blank .cell-answer { display: block; }
-body.answer-mode .cell-blank .cell-placeholder { display: none; }
-body.answer-mode table.trace td.blank input { display: none; }
-body.answer-mode table.trace td.blank::after { content: attr(data-answer); color: var(--red); font-weight: 500; font-family: var(--mono); font-size: 13px; }
-body.answer-mode .short-answer-ans { display: block; }
-body:not(.answer-mode) .answer-only { display: none; }
-body.answer-mode .student-only { display: none; }
-
-/* ── RESPONSIVE ── */
-@media(max-width: 600px) {
-  .topbar { padding: 0 14px; }
-  .topbar-title span:last-child { display: none; }
-  .page { padding: 20px 14px 60px; }
-  .tab-btn { padding: 12px 12px; font-size: 12px; }
-  .grid-cell { width: 70px; height: 56px; }
-}
-
-@media print {
-  .topbar, .tab-bar { position: static; }
-  body.answer-mode .mode-toggle, .mode-toggle { display: none; }
-  .panel { display: block !important; }
-  .tab-bar { display: none; }
-}
+/* ANSWER MODE */
+body.answer-mode .cell-blank input{display:none}
+body.answer-mode .cell-blank .cell-answer{display:block}
+body.answer-mode table.trace td.blank input{display:none}
+body.answer-mode table.trace td.blank::after{content:attr(data-answer);color:var(--red);font-weight:500;font-family:var(--mono);font-size:12px}
+body.answer-mode .model-ans{display:block}
+body:not(.answer-mode) .answer-only{display:none}
+body.answer-mode .student-only{display:none}
+body.answer-mode .sa-btn{display:none}
 </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
 <header class="topbar">
   <div class="topbar-title">
     <span class="subject-pill">CS · Grade 10</span>
@@ -220,7 +144,6 @@ body.answer-mode .student-only { display: none; }
   </div>
 </header>
 
-<!-- TABS -->
 <nav class="tab-bar">
   <button class="tab-btn active" onclick="switchTab(0)"><span class="tab-num">1</span>Declare</button>
   <button class="tab-btn" onclick="switchTab(1)"><span class="tab-num">2</span>Initialise</button>
@@ -229,312 +152,396 @@ body.answer-mode .student-only { display: none; }
   <button class="tab-btn" onclick="switchTab(4)"><span class="tab-num">5</span>Search</button>
 </nav>
 
-<!-- ================================================================ -->
-<!-- PANEL 1: DECLARE -->
-<!-- ================================================================ -->
 <div class="page">
+
+<!-- ══════════════════════════════════════════════════
+     PANEL 1 — DECLARE
+══════════════════════════════════════════════════ -->
 <div class="panel active" id="panel-0">
   <div class="section-header">
     <h2>Declaring a 2D Array</h2>
-    <p>A 2D array organises data in rows and columns — like a table. Every cell is accessed using two indices: <code style="font-family:var(--mono);background:var(--surface2);padding:1px 5px;border-radius:3px;">array[row][col]</code>.</p>
+    <p>A 2D array organises data in rows and columns — like a table. Every cell is accessed using two indices separated by a comma: <code style="font-family:var(--mono);background:var(--surface2);padding:1px 5px;border-radius:3px">Scores[I, J]</code>.</p>
   </div>
-  <div class="hint">Rows are the <strong>outer</strong> index; columns are the <strong>inner</strong> index. Counting starts at 0.</div>
+  <div class="hint">Rows are the <strong>outer</strong> index (I); columns are the <strong>inner</strong> index (J). Index counting starts at 0.</div>
 
-  <div class="code-label"><span class="lbl-pseudo">Pseudocode</span></div>
-<pre><span class="kw">DECLARE</span> scores[<span class="nm">3</span>][<span class="nm">4</span>] : <span class="kw">INTEGER</span>
+  <div class="side-by-side">
+    <div>
+      <div class="code-label"><span class="lbl-pseudo">Pseudocode</span></div>
+<pre><span class="kw">DECLARE</span> Scores : <span class="kw">ARRAY</span>[<span class="nm">0</span>:<span class="nm">2</span>, <span class="nm">0</span>:<span class="nm">3</span>] <span class="kw">OF INTEGER</span>
 
-<span class="cm">// Index map:</span>
-<span class="cm">// scores[0][0]  scores[0][1]  scores[0][2]  scores[0][3]</span>
-<span class="cm">// scores[1][0]  scores[1][1]  scores[1][2]  scores[1][3]</span>
-<span class="cm">// scores[2][0]  scores[2][1]  scores[2][2]  scores[2][3]</span></pre>
+<span class="cm">// Scores[0, 0]  Scores[0, 1]  Scores[0, 2]  Scores[0, 3]</span>
+<span class="cm">// Scores[1, 0]  Scores[1, 1]  Scores[1, 2]  Scores[1, 3]</span>
+<span class="cm">// Scores[2, 0]  Scores[2, 1]  Scores[2, 2]  Scores[2, 3]</span></pre>
+    </div>
+    <div>
+      <div class="code-label"><span class="lbl-py">Python</span></div>
+<pre><span class="cm"># Create a 3×4 2D list (zeros)</span>
+Scores = [[<span class="nm">0</span>] * <span class="nm">4</span> <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">3</span>)]
 
-  <div class="code-label"><span class="lbl-py">Python</span></div>
-<pre><span class="cm"># Create a 3×4 2D list filled with zeros</span>
-scores = [[<span class="nm">0</span>] * <span class="nm">4</span> <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">3</span>)]
-
-<span class="cm"># Access: scores[row][col]</span>
-<span class="cm"># e.g. scores[1][2]  →  row 1, column 2</span></pre>
+<span class="cm"># Access: Scores[row][col]</span>
+<span class="cm"># e.g. Scores[1][2] → row 1, col 2</span></pre>
+    </div>
+  </div>
 
   <div class="divider"></div>
 
   <div class="exercise">
     <div class="exercise-title">Exercise 1.1 — Label the grid</div>
-    <div class="ex-label">Write the correct index for each cell of <code style="font-family:var(--mono)">scores[3][4]</code>. The first one is done for you.</div>
-    <div class="grid-diagram" style="grid-template-columns: repeat(4, 90px);" id="grid-1">
-    </div>
-    <p style="font-size:13px;color:var(--text2);margin-top:16px;">How many cells are there in total? &nbsp;
-      <input type="text" placeholder="___" style="font-family:var(--mono);width:60px;border:none;border-bottom:2px solid var(--border);outline:none;font-size:14px;text-align:center;" class="student-only">
-      <span class="answer-only" style="color:var(--red);font-weight:600;font-family:var(--mono);">12</span>
+    <div class="ex-label">Write the correct index notation for each cell of <code style="font-family:var(--mono)">Scores : ARRAY[0:2, 0:3]</code>. Use the format <code style="font-family:var(--mono)">[row, col]</code>.</div>
+    <div class="grid-diagram" style="grid-template-columns:repeat(4,80px)" id="grid-1"></div>
+    <p style="font-size:13px;color:var(--text2);margin-top:14px">
+      How many cells are there in total?&nbsp;
+      <span id="total-cells-wrap">
+        <input type="text" id="total-cells-input" placeholder="?" style="font-family:var(--mono);width:50px;border:none;border-bottom:2px solid var(--border);outline:none;font-size:14px;text-align:center;" class="student-only">
+        <span id="total-cells-fb" style="font-size:13px;margin-left:6px"></span>
+        <span class="answer-only" style="color:var(--red);font-weight:600;font-family:var(--mono)">12</span>
+      </span>
     </p>
+    <button class="check-btn student-only" onclick="checkTotalCells()">Check Answer</button>
   </div>
 </div>
 
-<!-- ================================================================ -->
-<!-- PANEL 2: INITIALISE -->
-<!-- ================================================================ -->
+<!-- ══════════════════════════════════════════════════
+     PANEL 2 — INITIALISE
+══════════════════════════════════════════════════ -->
 <div class="panel" id="panel-1">
   <div class="section-header">
     <h2>Initialising a 2D Array</h2>
-    <p>Initialisation means putting values into the array. You can do this by <strong>hard-coding</strong> values directly, or using a <strong>nested FOR loop</strong> to fill the array systematically.</p>
+    <p>Initialisation assigns values to array cells — either by <strong>hard-coding</strong> values directly, or using a <strong>nested FOR loop</strong>.</p>
   </div>
 
-  <div class="code-label"><span class="lbl-pseudo">Pseudocode — hard-coded</span></div>
-<pre><span class="kw">DECLARE</span> grid[<span class="nm">2</span>][<span class="nm">3</span>] : <span class="kw">INTEGER</span>
-grid[<span class="nm">0</span>][<span class="nm">0</span>] ← <span class="nm">10</span>   grid[<span class="nm">0</span>][<span class="nm">1</span>] ← <span class="nm">20</span>   grid[<span class="nm">0</span>][<span class="nm">2</span>] ← <span class="nm">30</span>
-grid[<span class="nm">1</span>][<span class="nm">0</span>] ← <span class="nm">40</span>   grid[<span class="nm">1</span>][<span class="nm">1</span>] ← <span class="nm">50</span>   grid[<span class="nm">1</span>][<span class="nm">2</span>] ← <span class="nm">60</span></pre>
-
-  <div class="exercise">
-    <div class="exercise-title">Exercise 2.1 — Fill the grid after hard-coded initialisation</div>
-    <div class="grid-diagram" style="grid-template-columns: repeat(3, 90px);" id="grid-hc"></div>
+  <div class="side-by-side wide-code">
+    <div>
+      <div class="code-label"><span class="lbl-pseudo">Pseudocode — hard-coded</span></div>
+<pre><span class="kw">DECLARE</span> Grid : <span class="kw">ARRAY</span>[<span class="nm">0</span>:<span class="nm">1</span>, <span class="nm">0</span>:<span class="nm">2</span>] <span class="kw">OF INTEGER</span>
+Grid[<span class="nm">0</span>, <span class="nm">0</span>] ← <span class="nm">10</span>   Grid[<span class="nm">0</span>, <span class="nm">1</span>] ← <span class="nm">20</span>   Grid[<span class="nm">0</span>, <span class="nm">2</span>] ← <span class="nm">30</span>
+Grid[<span class="nm">1</span>, <span class="nm">0</span>] ← <span class="nm">40</span>   Grid[<span class="nm">1</span>, <span class="nm">1</span>] ← <span class="nm">50</span>   Grid[<span class="nm">1</span>, <span class="nm">2</span>] ← <span class="nm">60</span></pre>
+    </div>
+    <div>
+      <div class="exercise" style="margin:0">
+        <div class="exercise-title">Exercise 2.1 — Fill the grid</div>
+        <div class="ex-label">What values go in each cell?</div>
+        <div class="grid-diagram" style="grid-template-columns:repeat(3,80px)" id="grid-hc"></div>
+        <button class="check-btn student-only" style="margin-top:10px" onclick="checkGrid('grid-hc')">Check Answers</button>
+      </div>
+    </div>
   </div>
 
   <div class="divider"></div>
 
-  <div class="code-label"><span class="lbl-pseudo">Pseudocode — nested FOR loop (fills 1 to 9)</span></div>
-<pre><span class="kw">DECLARE</span> grid[<span class="nm">3</span>][<span class="nm">3</span>] : <span class="kw">INTEGER</span>
-<span class="kw">DECLARE</span> i, j : <span class="kw">INTEGER</span>
+  <div class="side-by-side wide-code">
+    <div>
+      <div class="code-label"><span class="lbl-pseudo">Pseudocode — nested FOR loop (fills 1 to 9)</span></div>
+<pre><span class="kw">DECLARE</span> Grid : <span class="kw">ARRAY</span>[<span class="nm">0</span>:<span class="nm">2</span>, <span class="nm">0</span>:<span class="nm">2</span>] <span class="kw">OF INTEGER</span>
+<span class="kw">DECLARE</span> I, J : <span class="kw">INTEGER</span>
 
-<span class="kw">FOR</span> i ← <span class="nm">0</span> <span class="kw">TO</span> <span class="nm">2</span>
-    <span class="kw">FOR</span> j ← <span class="nm">0</span> <span class="kw">TO</span> <span class="nm">2</span>
-        grid[i][j] ← i * <span class="nm">3</span> + j + <span class="nm">1</span>   <span class="cm">// fills 1 to 9</span>
-    <span class="kw">NEXT</span> j
-<span class="kw">NEXT</span> i</pre>
-
-  <div class="code-label"><span class="lbl-py">Python</span></div>
-<pre>grid = [[<span class="nm">0</span>] * <span class="nm">3</span> <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">3</span>)]
-<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">3</span>):
-    <span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">3</span>):
-        grid[i][j] = i * <span class="nm">3</span> + j + <span class="nm">1</span>
-<span class="fn">print</span>(grid)  <span class="cm"># [[1,2,3],[4,5,6],[7,8,9]]</span></pre>
-
-  <div class="exercise">
-    <div class="exercise-title">Exercise 2.2 — Trace table: dry-run the nested FOR loop</div>
-    <div class="hint-amber">Track <code style="font-family:var(--mono)">i</code>, <code style="font-family:var(--mono)">j</code>, the expression value, and what gets stored in <code style="font-family:var(--mono)">grid[i][j]</code>.</div>
-    <div class="trace-wrap">
-      <table class="trace" id="trace-2"></table>
+<span class="kw">FOR</span> I ← <span class="nm">0</span> <span class="kw">TO</span> <span class="nm">2</span>
+    <span class="kw">FOR</span> J ← <span class="nm">0</span> <span class="kw">TO</span> <span class="nm">2</span>
+        Grid[I, J] ← I * <span class="nm">3</span> + J + <span class="nm">1</span>
+    <span class="kw">NEXT</span> J
+<span class="kw">NEXT</span> I</pre>
+      <div class="code-label" style="margin-top:14px"><span class="lbl-py">Python</span></div>
+<pre>Grid = [[<span class="nm">0</span>] * <span class="nm">3</span> <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">3</span>)]
+<span class="kw">for</span> I <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">3</span>):
+    <span class="kw">for</span> J <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">3</span>):
+        Grid[I][J] = I * <span class="nm">3</span> + J + <span class="nm">1</span>
+<span class="fn">print</span>(Grid) <span class="cm"># [[1,2,3],[4,5,6],[7,8,9]]</span></pre>
     </div>
-    <div class="ex-label" style="margin-top:16px;">After the loops, draw the final 3×3 grid:</div>
-    <div class="grid-diagram" style="grid-template-columns: repeat(3, 90px);" id="grid-loop"></div>
+    <div>
+      <div class="exercise" style="margin:0">
+        <div class="exercise-title">Exercise 2.2 — Trace table</div>
+        <div class="hint-amber" style="margin-top:0">Refer to the pseudocode on the left. Track I, J, the expression, and Grid[I, J].</div>
+        <div class="trace-wrap"><table class="trace" id="trace-2"></table></div>
+        <button class="check-btn student-only" onclick="checkTrace('trace-2')">Check Answers</button>
+        <div style="margin-top:14px" class="ex-label">After the loops, draw the final 3×3 grid:</div>
+        <div class="grid-diagram" style="grid-template-columns:repeat(3,80px)" id="grid-loop"></div>
+        <button class="check-btn student-only" style="margin-top:8px" onclick="checkGrid('grid-loop')">Check Grid</button>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- ================================================================ -->
-<!-- PANEL 3: USER INPUT -->
-<!-- ================================================================ -->
+<!-- ══════════════════════════════════════════════════
+     PANEL 3 — USER INPUT
+══════════════════════════════════════════════════ -->
 <div class="panel" id="panel-2">
   <div class="section-header">
     <h2>Populating a 2D Array with User Input</h2>
     <p>The nested loop asks the user for each cell one at a time. The outer loop picks the row; the inner loop picks the column.</p>
   </div>
 
-  <div class="code-label"><span class="lbl-pseudo">Pseudocode</span></div>
-<pre><span class="kw">DECLARE</span> marks[<span class="nm">3</span>][<span class="nm">4</span>] : <span class="kw">INTEGER</span>
-<span class="kw">DECLARE</span> i, j : <span class="kw">INTEGER</span>
+  <div class="side-by-side wide-code">
+    <div>
+      <div class="code-label"><span class="lbl-pseudo">Pseudocode</span></div>
+<pre><span class="kw">DECLARE</span> Marks : <span class="kw">ARRAY</span>[<span class="nm">0</span>:<span class="nm">2</span>, <span class="nm">0</span>:<span class="nm">3</span>] <span class="kw">OF INTEGER</span>
+<span class="kw">DECLARE</span> I, J : <span class="kw">INTEGER</span>
 
-<span class="kw">FOR</span> i ← <span class="nm">0</span> <span class="kw">TO</span> <span class="nm">2</span>
-    <span class="kw">FOR</span> j ← <span class="nm">0</span> <span class="kw">TO</span> <span class="nm">3</span>
-        <span class="kw">OUTPUT</span> <span class="st">"Enter mark for row "</span>, i, <span class="st">" col "</span>, j
-        <span class="kw">INPUT</span> marks[i][j]
-    <span class="kw">NEXT</span> j
-<span class="kw">NEXT</span> i</pre>
-
-  <div class="code-label"><span class="lbl-py">Python</span></div>
+<span class="kw">FOR</span> I ← <span class="nm">0</span> <span class="kw">TO</span> <span class="nm">2</span>
+    <span class="kw">FOR</span> J ← <span class="nm">0</span> <span class="kw">TO</span> <span class="nm">3</span>
+        <span class="kw">OUTPUT</span> <span class="st">"Enter mark for row "</span>, I,
+               <span class="st">" col "</span>, J
+        <span class="kw">INPUT</span> Marks[I, J]
+    <span class="kw">NEXT</span> J
+<span class="kw">NEXT</span> I</pre>
+      <div class="code-label" style="margin-top:14px"><span class="lbl-py">Python</span></div>
 <pre>ROWS, COLS = <span class="nm">3</span>, <span class="nm">4</span>
-marks = [[<span class="nm">0</span>] * COLS <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(ROWS)]
+Marks = [[<span class="nm">0</span>] * COLS <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(ROWS)]
 
-<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(ROWS):
-    <span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(COLS):
-        marks[i][j] = <span class="fn">int</span>(<span class="fn">input</span>(<span class="st">f"Enter mark for row {i} col {j}: "</span>))
-
-<span class="kw">for</span> row <span class="kw">in</span> marks:
-    <span class="fn">print</span>(row)</pre>
-
-  <div class="exercise">
-    <div class="exercise-title">Exercise 3.1 — Trace table</div>
-    <div class="ex-label">The user enters these values in order: <code style="font-family:var(--mono);background:var(--surface2);padding:2px 6px;border-radius:4px;">5, 8, 3, 7, 2, 6, 4, 9, 1, 5, 3, 8</code></div>
-    <div class="hint-amber">Fill in the prompt OUTPUT shown to the user, and the value stored in <code style="font-family:var(--mono)">marks[i][j]</code>.</div>
-    <div class="trace-wrap">
-      <table class="trace" id="trace-3"></table>
+<span class="kw">for</span> I <span class="kw">in</span> <span class="fn">range</span>(ROWS):
+    <span class="kw">for</span> J <span class="kw">in</span> <span class="fn">range</span>(COLS):
+        Marks[I][J] = <span class="fn">int</span>(<span class="fn">input</span>(
+            <span class="st">f"Enter mark for row {I} col {J}: "</span>))
+<span class="kw">for</span> Row <span class="kw">in</span> Marks:
+    <span class="fn">print</span>(Row)</pre>
     </div>
-    <div class="ex-label" style="margin-top:16px;">Draw the resulting 3×4 marks grid:</div>
-    <div class="grid-diagram" style="grid-template-columns: repeat(4, 90px);" id="grid-marks"></div>
+    <div>
+      <div class="exercise" style="margin:0">
+        <div class="exercise-title">Exercise 3.1 — Trace table</div>
+        <div class="ex-label">User enters: <code style="font-family:var(--mono);background:var(--surface2);padding:2px 5px;border-radius:3px">5,8,3,7,2,6,4,9,1,5,3,8</code></div>
+        <div class="hint-amber" style="margin:8px 0">Fill the OUTPUT prompt and the value stored.</div>
+        <div class="trace-wrap"><table class="trace" id="trace-3"></table></div>
+        <button class="check-btn student-only" onclick="checkTrace('trace-3')">Check Answers</button>
+        <div style="margin-top:14px" class="ex-label">Resulting 3×4 Marks grid:</div>
+        <div class="grid-diagram" style="grid-template-columns:repeat(4,80px)" id="grid-marks"></div>
+        <button class="check-btn student-only" style="margin-top:8px" onclick="checkGrid('grid-marks')">Check Grid</button>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- ================================================================ -->
-<!-- PANEL 4: BUBBLE SORT -->
-<!-- ================================================================ -->
+<!-- ══════════════════════════════════════════════════
+     PANEL 4 — BUBBLE SORT
+══════════════════════════════════════════════════ -->
 <div class="panel" id="panel-3">
   <div class="section-header">
-    <h2>Bubble Sort on Each Row</h2>
-    <p>Bubble sort is applied <strong>row by row</strong>. Each pass pushes the largest unsorted value to the right. A <code style="font-family:var(--mono);background:var(--surface2);padding:1px 5px;border-radius:3px;">temp</code> variable is used for the swap.</p>
+    <h2>Bubble Sort — Each Row (REPEAT…UNTIL)</h2>
+    <p>This version uses a <strong>REPEAT…UNTIL</strong> loop with a <code style="font-family:var(--mono);background:var(--surface2);padding:1px 5px;border-radius:3px">Swap</code> flag — it stops early if no swaps occurred in a pass, making it more efficient.</p>
   </div>
 
-  <div class="code-label"><span class="lbl-pseudo">Pseudocode</span></div>
-<pre><span class="kw">DECLARE</span> data[<span class="nm">3</span>][<span class="nm">4</span>] : <span class="kw">INTEGER</span>
-<span class="kw">DECLARE</span> i, pass, k : <span class="kw">INTEGER</span>
-<span class="kw">DECLARE</span> temp : <span class="kw">INTEGER</span>
+  <div class="side-by-side wide-code">
+    <div>
+      <div class="code-label"><span class="lbl-pseudo">Pseudocode — bubble sort each row</span></div>
+<pre><span class="kw">DECLARE</span> Data : <span class="kw">ARRAY</span>[<span class="nm">0</span>:<span class="nm">2</span>, <span class="nm">0</span>:<span class="nm">3</span>] <span class="kw">OF INTEGER</span>
+<span class="kw">DECLARE</span> I, Index, Last : <span class="kw">INTEGER</span>
+<span class="kw">DECLARE</span> Temp : <span class="kw">INTEGER</span>
+<span class="kw">DECLARE</span> Swap : <span class="kw">BOOLEAN</span>
 
-<span class="cm">// Assume data[][] is already populated</span>
+<span class="cm">// Assume Data[][] is already populated</span>
 
-<span class="kw">FOR</span> i ← <span class="nm">0</span> <span class="kw">TO</span> <span class="nm">2</span>                     <span class="cm">// for each row</span>
-    <span class="kw">FOR</span> pass ← <span class="nm">0</span> <span class="kw">TO</span> <span class="nm">2</span>              <span class="cm">// 3 passes for 4 elements</span>
-        <span class="kw">FOR</span> k ← <span class="nm">0</span> <span class="kw">TO</span> <span class="nm">2</span> - pass      <span class="cm">// window shrinks each pass</span>
-            <span class="kw">IF</span> data[i][k] > data[i][k+<span class="nm">1</span>] <span class="kw">THEN</span>
-                temp          ← data[i][k]
-                data[i][k]    ← data[i][k+<span class="nm">1</span>]
-                data[i][k+<span class="nm">1</span>] ← temp
+<span class="kw">FOR</span> I ← <span class="nm">0</span> <span class="kw">TO</span> <span class="nm">2</span>          <span class="cm">// for each row</span>
+    Last ← <span class="nm">3</span>             <span class="cm">// last index to compare</span>
+    <span class="kw">REPEAT</span>
+        Swap ← <span class="kw">FALSE</span>
+        <span class="kw">FOR</span> Index ← <span class="nm">0</span> <span class="kw">TO</span> Last - <span class="nm">1</span>
+            <span class="kw">IF</span> Data[I, Index] > Data[I, Index + <span class="nm">1</span>]
+            <span class="kw">THEN</span>
+                Temp              ← Data[I, Index]
+                Data[I, Index]    ← Data[I, Index + <span class="nm">1</span>]
+                Data[I, Index + <span class="nm">1</span>] ← Temp
+                Swap ← <span class="kw">TRUE</span>
             <span class="kw">ENDIF</span>
-        <span class="kw">NEXT</span> k
-    <span class="kw">NEXT</span> pass
-<span class="kw">NEXT</span> i</pre>
+        <span class="kw">NEXT</span> Index
+        Last ← Last - <span class="nm">1</span>
+    <span class="kw">UNTIL</span> (<span class="kw">NOT</span> Swap) <span class="kw">OR</span> Last = <span class="nm">0</span>
+<span class="kw">NEXT</span> I</pre>
 
-  <div class="code-label"><span class="lbl-py">Python</span></div>
-<pre>data = [[<span class="nm">4</span>, <span class="nm">1</span>, <span class="nm">3</span>, <span class="nm">2</span>],
+      <div class="code-label" style="margin-top:14px"><span class="lbl-py">Python</span></div>
+<pre>Data = [[<span class="nm">4</span>, <span class="nm">1</span>, <span class="nm">3</span>, <span class="nm">2</span>],
         [<span class="nm">9</span>, <span class="nm">5</span>, <span class="nm">7</span>, <span class="nm">6</span>],
         [<span class="nm">2</span>, <span class="nm">8</span>, <span class="nm">1</span>, <span class="nm">4</span>]]
 ROWS, COLS = <span class="nm">3</span>, <span class="nm">4</span>
 
-<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(ROWS):
-    <span class="kw">for</span> pass_ <span class="kw">in</span> <span class="fn">range</span>(COLS - <span class="nm">1</span>):
-        <span class="kw">for</span> k <span class="kw">in</span> <span class="fn">range</span>(COLS - <span class="nm">1</span> - pass_):
-            <span class="kw">if</span> data[i][k] > data[i][k + <span class="nm">1</span>]:
-                data[i][k], data[i][k+<span class="nm">1</span>] = data[i][k+<span class="nm">1</span>], data[i][k]
+<span class="kw">for</span> I <span class="kw">in</span> <span class="fn">range</span>(ROWS):
+    Last = COLS - <span class="nm">1</span>
+    <span class="kw">while True</span>:
+        Swap = <span class="kw">False</span>
+        <span class="kw">for</span> Index <span class="kw">in</span> <span class="fn">range</span>(Last):
+            <span class="kw">if</span> Data[I][Index] > Data[I][Index+<span class="nm">1</span>]:
+                Data[I][Index], Data[I][Index+<span class="nm">1</span>] = \
+                    Data[I][Index+<span class="nm">1</span>], Data[I][Index]
+                Swap = <span class="kw">True</span>
+        Last -= <span class="nm">1</span>
+        <span class="kw">if</span> (<span class="kw">not</span> Swap) <span class="kw">or</span> Last == <span class="nm">0</span>:
+            <span class="kw">break</span>
 
-<span class="kw">for</span> row <span class="kw">in</span> data:
-    <span class="fn">print</span>(row)</pre>
-
-  <div class="exercise">
-    <div class="exercise-title">Exercise 4.1 — Trace table: row 0 only</div>
-    <div class="ex-label">Row 0 starts as: <code style="font-family:var(--mono);background:var(--surface2);padding:2px 6px;border-radius:4px;">[4, 1, 3, 2]</code> &nbsp; (i = 0 throughout)</div>
-    <div class="hint-amber">Show values at the moment of comparison. Write YES or NO for swap. Show full row state after each step.</div>
-    <div class="trace-wrap">
-      <table class="trace" id="trace-4"></table>
+<span class="kw">for</span> Row <span class="kw">in</span> Data:
+    <span class="fn">print</span>(Row)</pre>
     </div>
-    <p style="font-size:13px;color:var(--text2);margin-top:16px;">Sorted order of row 0 after all passes: &nbsp;
-      <input type="text" placeholder="[ ___ ]" style="font-family:var(--mono);width:120px;border:none;border-bottom:2px solid var(--border);outline:none;font-size:14px;text-align:center;" class="student-only">
-      <span class="answer-only" style="color:var(--red);font-weight:600;font-family:var(--mono);">[1, 2, 3, 4]</span>
-    </p>
-  </div>
+    <div>
+      <div class="exercise" style="margin:0">
+        <div class="exercise-title">Exercise 4.1 — Trace table: row 0 only</div>
+        <div class="ex-label">Row 0 starts as: <code style="font-family:var(--mono);background:var(--surface2);padding:2px 5px;border-radius:3px">[4, 1, 3, 2]</code> &nbsp;(I = 0, Last starts at 3)</div>
+        <div class="hint-amber" style="margin:8px 0">Show values at comparison, whether a swap occurred, and the row state after each full pass.</div>
+        <div class="trace-wrap"><table class="trace" id="trace-4"></table></div>
+        <button class="check-btn student-only" onclick="checkTrace('trace-4')">Check Answers</button>
+        <p style="font-size:13px;color:var(--text2);margin-top:12px">
+          Sorted row 0 after all passes:&nbsp;
+          <input type="text" id="sort-ans" placeholder="[ ___ ]" style="font-family:var(--mono);width:110px;border:none;border-bottom:2px solid var(--border);outline:none;font-size:13px;text-align:center;" class="student-only">
+          <span id="sort-fb" style="font-size:12px;margin-left:6px"></span>
+          <span class="answer-only" style="color:var(--red);font-weight:600;font-family:var(--mono)">[1, 2, 3, 4]</span>
+        </p>
+        <button class="check-btn student-only" onclick="checkSortAns()" style="margin-top:6px">Check</button>
+      </div>
 
-  <div class="exercise">
-    <div class="exercise-title">Exercise 4.2 — Short-answer questions</div>
-    <div id="sa-4"></div>
+      <div class="exercise" style="margin-top:16px">
+        <div class="exercise-title">Exercise 4.2 — Short-answer questions</div>
+        <div id="sa-4"></div>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- ================================================================ -->
-<!-- PANEL 5: SEARCH -->
-<!-- ================================================================ -->
+<!-- ══════════════════════════════════════════════════
+     PANEL 5 — SEARCH
+══════════════════════════════════════════════════ -->
 <div class="panel" id="panel-4">
   <div class="section-header">
     <h2>Linear Search Across All Rows</h2>
-    <p>The search scans every element row by row. A <code style="font-family:var(--mono);background:var(--surface2);padding:1px 5px;border-radius:3px;">found</code> flag tracks whether the target was located. All occurrences are reported.</p>
+    <p>Scans every element row by row. A <code style="font-family:var(--mono);background:var(--surface2);padding:1px 5px;border-radius:3px">Found</code> flag tracks whether the target was located. All occurrences are reported.</p>
   </div>
 
-  <div class="code-label"><span class="lbl-pseudo">Pseudocode</span></div>
-<pre><span class="kw">DECLARE</span> data[<span class="nm">3</span>][<span class="nm">3</span>] : <span class="kw">INTEGER</span>
-<span class="kw">DECLARE</span> i, j, target : <span class="kw">INTEGER</span>
-<span class="kw">DECLARE</span> found : <span class="kw">BOOLEAN</span>
+  <div class="side-by-side wide-code">
+    <div>
+      <div class="code-label"><span class="lbl-pseudo">Pseudocode</span></div>
+<pre><span class="kw">DECLARE</span> Data : <span class="kw">ARRAY</span>[<span class="nm">0</span>:<span class="nm">2</span>, <span class="nm">0</span>:<span class="nm">2</span>] <span class="kw">OF INTEGER</span>
+<span class="kw">DECLARE</span> I, J, Target : <span class="kw">INTEGER</span>
+<span class="kw">DECLARE</span> Found : <span class="kw">BOOLEAN</span>
 
 <span class="kw">OUTPUT</span> <span class="st">"Enter value to search:"</span>
-<span class="kw">INPUT</span> target
-found ← <span class="kw">FALSE</span>
+<span class="kw">INPUT</span> Target
+Found ← <span class="kw">FALSE</span>
 
-<span class="kw">FOR</span> i ← <span class="nm">0</span> <span class="kw">TO</span> <span class="nm">2</span>
-    <span class="kw">FOR</span> j ← <span class="nm">0</span> <span class="kw">TO</span> <span class="nm">2</span>
-        <span class="kw">IF</span> data[i][j] = target <span class="kw">THEN</span>
-            <span class="kw">OUTPUT</span> <span class="st">"Found at row "</span>, i, <span class="st">" col "</span>, j
-            found ← <span class="kw">TRUE</span>
+<span class="kw">FOR</span> I ← <span class="nm">0</span> <span class="kw">TO</span> <span class="nm">2</span>
+    <span class="kw">FOR</span> J ← <span class="nm">0</span> <span class="kw">TO</span> <span class="nm">2</span>
+        <span class="kw">IF</span> Data[I, J] = Target <span class="kw">THEN</span>
+            <span class="kw">OUTPUT</span> <span class="st">"Found at row "</span>, I,
+                   <span class="st">" col "</span>, J
+            Found ← <span class="kw">TRUE</span>
         <span class="kw">ENDIF</span>
-    <span class="kw">NEXT</span> j
-<span class="kw">NEXT</span> i
+    <span class="kw">NEXT</span> J
+<span class="kw">NEXT</span> I
 
-<span class="kw">IF</span> found = <span class="kw">FALSE</span> <span class="kw">THEN</span>
+<span class="kw">IF</span> Found = <span class="kw">FALSE THEN</span>
     <span class="kw">OUTPUT</span> <span class="st">"Value not found"</span>
 <span class="kw">ENDIF</span></pre>
 
-  <div class="code-label"><span class="lbl-py">Python</span></div>
-<pre>data = [[<span class="nm">5</span>, <span class="nm">8</span>, <span class="nm">3</span>],
+      <div class="code-label" style="margin-top:14px"><span class="lbl-py">Python</span></div>
+<pre>Data = [[<span class="nm">5</span>, <span class="nm">8</span>, <span class="nm">3</span>],
         [<span class="nm">7</span>, <span class="nm">2</span>, <span class="nm">6</span>],
         [<span class="nm">4</span>, <span class="nm">9</span>, <span class="nm">3</span>]]
 
-target = <span class="fn">int</span>(<span class="fn">input</span>(<span class="st">'Enter value to search: '</span>))
-found = <span class="kw">False</span>
+Target = <span class="fn">int</span>(<span class="fn">input</span>(<span class="st">'Enter value to search: '</span>))
+Found = <span class="kw">False</span>
 
-<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(data)):
-    <span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(data[i])):
-        <span class="kw">if</span> data[i][j] == target:
-            <span class="fn">print</span>(<span class="st">f"Found at row {i} col {j}"</span>)
-            found = <span class="kw">True</span>
+<span class="kw">for</span> I <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(Data)):
+    <span class="kw">for</span> J <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(Data[I])):
+        <span class="kw">if</span> Data[I][J] == Target:
+            <span class="fn">print</span>(<span class="st">f"Found at row {I} col {J}"</span>)
+            Found = <span class="kw">True</span>
 
-<span class="kw">if not</span> found:
+<span class="kw">if not</span> Found:
     <span class="fn">print</span>(<span class="st">"Value not found"</span>)</pre>
-
-  <div class="exercise">
-    <div class="exercise-title">Exercise 5.1 — Trace table</div>
-    <div class="ex-label"><code style="font-family:var(--mono);background:var(--surface2);padding:2px 6px;border-radius:4px;">data = [[5,8,3],[7,2,6],[4,9,3]]</code> &nbsp; <code style="font-family:var(--mono);background:var(--surface2);padding:2px 6px;border-radius:4px;">target = 3</code></div>
-    <div class="hint-amber">Track the value at each step, whether it matches the target, the current state of <code style="font-family:var(--mono)">found</code>, and any output produced.</div>
-    <div class="trace-wrap">
-      <table class="trace" id="trace-5"></table>
     </div>
-    <p style="font-size:13px;color:var(--text2);margin-top:16px;">How many times is the target found, and at which positions?</p>
-    <input type="text" placeholder="Write your answer here..." style="width:100%;border:none;border-bottom:1.5px solid var(--border);outline:none;font-family:var(--sans);font-size:14px;padding:6px 0;background:transparent;color:var(--text);" class="student-only">
-    <div class="answer-only" style="color:var(--red);font-weight:500;font-size:14px;margin-top:4px;">2 times — at [0][2] and [2][2]</div>
-  </div>
+    <div>
+      <div class="exercise" style="margin:0">
+        <div class="exercise-title">Exercise 5.1 — Trace table</div>
+        <div class="ex-label">
+          <code style="font-family:var(--mono);background:var(--surface2);padding:2px 5px;border-radius:3px">Data = [[5,8,3],[7,2,6],[4,9,3]]</code><br>
+          <code style="font-family:var(--mono);background:var(--surface2);padding:2px 5px;border-radius:3px;margin-top:4px;display:inline-block">Target = 3</code>
+        </div>
+        <div class="hint-amber" style="margin:8px 0">Track Data[I,J], whether it matches Target, Found flag, and any output.</div>
+        <div class="trace-wrap"><table class="trace" id="trace-5"></table></div>
+        <button class="check-btn student-only" onclick="checkTrace('trace-5')">Check Answers</button>
+        <p style="font-size:13px;color:var(--text2);margin-top:12px">How many times is Target found, and at which positions?</p>
+        <input type="text" id="search-ans" placeholder="Your answer..." style="width:100%;border:none;border-bottom:1.5px solid var(--border);outline:none;font-family:var(--sans);font-size:13px;padding:6px 0;background:transparent;color:var(--text);" class="student-only">
+        <span id="search-fb" style="font-size:12px;display:block;margin-top:4px"></span>
+        <div class="answer-only" style="color:var(--red);font-weight:500;font-size:13px;margin-top:4px">2 times — at [0,2] and [2,2]</div>
+        <button class="check-btn student-only" onclick="checkSearchAns()" style="margin-top:6px">Check</button>
+      </div>
 
-  <div class="exercise">
-    <div class="exercise-title">Exercise 5.2 — Short-answer questions</div>
-    <div id="sa-5"></div>
+      <div class="exercise" style="margin-top:16px">
+        <div class="exercise-title">Exercise 5.2 — Short-answer questions</div>
+        <div id="sa-5"></div>
+      </div>
+    </div>
   </div>
 </div>
 
 </div><!-- .page -->
 
 <script>
-// ── MODE ──
+// ══════════════════════════════════════
+// MODE & TABS
+// ══════════════════════════════════════
 function setMode(m) {
   document.body.classList.toggle('answer-mode', m === 'teacher');
   document.getElementById('btn-student').classList.toggle('active', m === 'student');
   document.getElementById('btn-teacher').classList.toggle('active', m === 'teacher');
 }
-
-// ── TABS ──
 function switchTab(idx) {
   document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', i===idx));
   document.querySelectorAll('.panel').forEach((p,i) => p.classList.toggle('active', i===idx));
 }
 
-// ── BUILD GRID ──
-function buildGrid(containerId, rows, cols, answers) {
-  const el = document.getElementById(containerId);
+// ══════════════════════════════════════
+// BUILD GRID (with validation support)
+// ══════════════════════════════════════
+function buildGrid(id, rows, cols, answers, showIdx) {
+  const el = document.getElementById(id);
   if (!el) return;
-  for (let r=0; r<rows; r++) {
-    for (let c=0; c<cols; c++) {
-      const cell = document.createElement('div');
-      cell.className = 'grid-cell';
-      const isFirst = r===0 && c===0;
-      const ans = answers ? answers[r][c] : null;
-      cell.innerHTML = `<span class="cell-idx">[${r}][${c}]</span>`;
-      if (ans !== null) {
-        if (isFirst && containerId==='grid-1') {
-          cell.innerHTML += `<span class="cell-val" style="color:var(--text2)">${ans}</span>`;
-        } else {
-          cell.innerHTML += `
-            <span class="cell-blank">
-              <input type="text" placeholder="?" class="student-only" maxlength="6">
-              <span class="cell-answer answer-only">${ans}</span>
-            </span>`;
-        }
-      } else {
-        cell.innerHTML += `<span class="cell-blank"><input type="text" placeholder="?" class="student-only" maxlength="6"></span>`;
-      }
-      el.appendChild(cell);
+  el.style.gridTemplateColumns = `repeat(${cols}, 80px)`;
+  for (let r=0;r<rows;r++) for (let c=0;c<cols;c++) {
+    const ans = answers ? String(answers[r][c]) : '';
+    const cell = document.createElement('div');
+    cell.className = 'grid-cell';
+    cell.dataset.answer = ans;
+    if (showIdx) {
+      const idx = document.createElement('span');
+      idx.className = 'cell-idx';
+      idx.textContent = `[${r},${c}]`;
+      cell.appendChild(idx);
     }
+    const blank = document.createElement('span');
+    blank.className = 'cell-blank';
+    const inp = document.createElement('input');
+    inp.type = 'text'; inp.placeholder = '?'; inp.maxLength = 8;
+    inp.className = 'student-only';
+    inp.addEventListener('keydown', e => { if(e.key==='Enter') checkGrid(id); });
+    const ansSpan = document.createElement('span');
+    ansSpan.className = 'cell-answer answer-only';
+    ansSpan.textContent = ans;
+    blank.appendChild(inp); blank.appendChild(ansSpan);
+    const fb = document.createElement('span');
+    fb.className = 'cell-fb';
+    cell.appendChild(blank); cell.appendChild(fb);
+    el.appendChild(cell);
   }
 }
 
-// ── BUILD TRACE TABLE ──
+function checkGrid(id) {
+  const el = document.getElementById(id);
+  let allCorrect = true;
+  el.querySelectorAll('.grid-cell').forEach(cell => {
+    const inp = cell.querySelector('input');
+    const ans = (cell.dataset.answer || '').trim().toLowerCase();
+    const val = (inp ? inp.value : '').trim().toLowerCase();
+    const fb = cell.querySelector('.cell-fb');
+    if (!inp || inp.value.trim() === '') return;
+    cell.classList.remove('cell-correct','cell-wrong');
+    if (val === ans) {
+      cell.classList.add('cell-correct');
+      fb.textContent = '✓';
+    } else {
+      cell.classList.add('cell-wrong');
+      fb.textContent = '✗ ' + cell.dataset.answer;
+      allCorrect = false;
+    }
+  });
+}
+
+// ══════════════════════════════════════
+// BUILD TRACE TABLE
+// ══════════════════════════════════════
 function buildTrace(tableId, headers, rows) {
   const tbl = document.getElementById(tableId);
   if (!tbl) return;
@@ -542,7 +549,7 @@ function buildTrace(tableId, headers, rows) {
   const hr = thead.insertRow();
   headers.forEach(h => {
     const th = document.createElement('th');
-    th.textContent = h;
+    th.innerHTML = h;
     hr.appendChild(th);
   });
   const tbody = tbl.createTBody();
@@ -555,132 +562,239 @@ function buildTrace(tableId, headers, rows) {
         td.textContent = cell.val;
       } else {
         td.className = 'blank';
-        td.setAttribute('data-answer', cell.ans);
-        td.innerHTML = `<input type="text" placeholder="?" class="student-only" maxlength="30">`;
+        td.dataset.answer = cell.ans;
+        const inp = document.createElement('input');
+        inp.type = 'text'; inp.placeholder = '?'; inp.maxLength = 35;
+        inp.className = 'student-only';
+        td.appendChild(inp);
       }
     });
   });
 }
 
-// ── SHORT ANSWER ──
+function normalise(s) {
+  return s.trim().toLowerCase()
+    .replace(/\s+/g,' ')
+    .replace(/["""]/g,'"')
+    .replace(/'/g,"'");
+}
+
+function checkTrace(tableId) {
+  const tbl = document.getElementById(tableId);
+  tbl.querySelectorAll('td.blank').forEach(td => {
+    const inp = td.querySelector('input');
+    if (!inp || inp.value.trim() === '') return;
+    const ans = normalise(td.dataset.answer || '');
+    const val = normalise(inp.value);
+    td.classList.remove('t-correct','t-wrong');
+    // remove old reveal
+    const old = td.querySelector('.reveal-ans');
+    if (old) old.remove();
+    if (val === ans) {
+      td.classList.add('t-correct');
+    } else {
+      td.classList.add('t-wrong');
+      const rv = document.createElement('span');
+      rv.className = 'reveal-ans';
+      rv.textContent = '→ ' + td.dataset.answer;
+      td.appendChild(rv);
+    }
+  });
+}
+
+// ══════════════════════════════════════
+// SHORT ANSWER (keyword check)
+// ══════════════════════════════════════
 function buildShortAnswers(containerId, questions) {
   const el = document.getElementById(containerId);
   if (!el) return;
   questions.forEach((q, i) => {
-    el.innerHTML += `
-      <div class="short-answer-q">
-        <p><strong>${i+1}.</strong> ${q.q}</p>
-        <input type="text" class="answer-line student-only" placeholder="Your answer...">
-        <input type="text" class="answer-line student-only" placeholder="">
-        <div class="short-answer-ans answer-only">${q.a}</div>
-      </div>`;
+    const div = document.createElement('div');
+    div.className = 'short-answer-q';
+    div.innerHTML = `
+      <p><strong>${i+1}.</strong> ${q.q}</p>
+      <input type="text" class="sa-input student-only" placeholder="Your answer..." data-keywords='${JSON.stringify(q.keywords)}'>
+      <button class="sa-btn student-only" onclick="checkSA(this)">Check</button>
+      <div class="sa-feedback"></div>
+      <div class="model-ans answer-only">${q.a}</div>`;
+    el.appendChild(div);
   });
 }
 
-// ── DATA ──
-// Grid 1: declare scores[3][4]
-buildGrid('grid-1', 3, 4, Array.from({length:3}, (_, r) => Array.from({length:4}, (_, c) => `[${r}][${c}]`)));
+function checkSA(btn) {
+  const wrap = btn.closest('.short-answer-q');
+  const inp = wrap.querySelector('.sa-input');
+  const fb = wrap.querySelector('.sa-feedback');
+  const modelAns = wrap.querySelector('.model-ans');
+  const keywords = JSON.parse(inp.dataset.keywords || '[]');
+  const val = inp.value.toLowerCase();
+  const hits = keywords.filter(kw => val.includes(kw.toLowerCase()));
+  fb.style.display = 'block';
+  if (hits.length >= Math.ceil(keywords.length * 0.5)) {
+    fb.className = 'sa-feedback correct';
+    fb.textContent = '✓ Good answer! Key points covered.';
+  } else {
+    fb.className = 'sa-feedback wrong';
+    fb.textContent = '✗ Missing key ideas. See the model answer below.';
+    modelAns.style.display = 'block';
+  }
+}
 
-// Grid 2a: hard-coded
-buildGrid('grid-hc', 2, 3, [[10,20,30],[40,50,60]]);
+// ══════════════════════════════════════
+// SPECIFIC CHECKS
+// ══════════════════════════════════════
+function checkTotalCells() {
+  const inp = document.getElementById('total-cells-input');
+  const fb = document.getElementById('total-cells-fb');
+  if (inp.value.trim() === '12') {
+    fb.innerHTML = '<span style="color:var(--correct);font-weight:600">✓ Correct!</span>';
+  } else {
+    fb.innerHTML = '<span style="color:var(--wrong);font-weight:600">✗ Hint: rows × cols = 3 × 4 = 12</span>';
+  }
+}
 
-// Trace 2: nested FOR
+function checkSortAns() {
+  const inp = document.getElementById('sort-ans');
+  const fb = document.getElementById('sort-fb');
+  const val = inp.value.replace(/\s/g,'');
+  const accepted = ['[1,2,3,4]','1,2,3,4','1234'];
+  if (accepted.some(a => val === a)) {
+    fb.innerHTML = '<span style="color:var(--correct);font-weight:600">✓ Correct!</span>';
+  } else {
+    fb.innerHTML = '<span style="color:var(--wrong);font-weight:600">✗ Answer: [1, 2, 3, 4]</span>';
+  }
+}
+
+function checkSearchAns() {
+  const inp = document.getElementById('search-ans');
+  const fb = document.getElementById('search-fb');
+  const val = inp.value.toLowerCase();
+  if (val.includes('2') && (val.includes('[0,2]')||val.includes('0,2')||val.includes('row 0')) && (val.includes('[2,2]')||val.includes('2,2')||val.includes('row 2'))) {
+    fb.innerHTML = '<span style="color:var(--correct);font-weight:600">✓ Correct! Found at [0,2] and [2,2].</span>';
+  } else {
+    fb.innerHTML = '<span style="color:var(--wrong);font-weight:600">✗ Answer: 2 times — at [0,2] and [2,2]</span>';
+  }
+}
+
+// ══════════════════════════════════════
+// POPULATE DATA
+// ══════════════════════════════════════
+
+// Grid 1 — declare: no index shown, students write the index
+buildGrid('grid-1', 3, 4, Array.from({length:3},(_,r)=>Array.from({length:4},(_,c)=>`[${r},${c}]`)), false);
+
+// Grid 2a — hard-coded
+buildGrid('grid-hc', 2, 3, [[10,20,30],[40,50,60]], true);
+
+// Trace 2 — nested FOR
 (function(){
-  const rows = [];
-  for (let i=0;i<3;i++) for (let j=0;j<3;j++) {
+  const rows=[];
+  for(let I=0;I<3;I++) for(let J=0;J<3;J++){
     rows.push([
-      {fixed:true, val:String(i)},
-      {fixed:true, val:String(j)},
-      {fixed:false, ans:`${i}*3+${j}+1 = ${i*3+j+1}`},
-      {fixed:false, ans:String(i*3+j+1)}
+      {fixed:true,val:String(I)},
+      {fixed:true,val:String(J)},
+      {fixed:false,ans:String(I*3+J+1)},
+      {fixed:false,ans:String(I*3+J+1)}
     ]);
   }
-  buildTrace('trace-2', ['i','j','i * 3 + j + 1','grid[i][j]'], rows);
+  buildTrace('trace-2',['I','J','I*3+J+1','Grid[I,J]'],rows);
 })();
 
-// Grid 2b: loop result
-buildGrid('grid-loop', 3, 3, [[1,2,3],[4,5,6],[7,8,9]]);
+// Grid 2b — loop result
+buildGrid('grid-loop', 3, 3, [[1,2,3],[4,5,6],[7,8,9]], true);
 
-// Trace 3: user input
+// Trace 3 — user input
 (function(){
-  const vals = [5,8,3,7,2,6,4,9,1,5,3,8];
-  let idx=0;
-  const rows=[];
-  for(let i=0;i<3;i++) for(let j=0;j<4;j++){
+  const vals=[5,8,3,7,2,6,4,9,1,5,3,8];
+  let idx=0; const rows=[];
+  for(let I=0;I<3;I++) for(let J=0;J<4;J++){
     const v=vals[idx++];
     rows.push([
-      {fixed:true,val:String(i)},
-      {fixed:true,val:String(j)},
-      {fixed:false,ans:`"Enter mark for row ${i} col ${j}"`},
+      {fixed:true,val:String(I)},
+      {fixed:true,val:String(J)},
+      {fixed:false,ans:`Enter mark for row ${I} col ${J}`},
       {fixed:false,ans:String(v)}
     ]);
   }
-  buildTrace('trace-3',['i','j','OUTPUT (prompt)','marks[i][j]'],rows);
+  buildTrace('trace-3',['I','J','OUTPUT (prompt)','Marks[I,J]'],rows);
 })();
 
-// Grid 3: marks result
-buildGrid('grid-marks', 3, 4, [[5,8,3,7],[2,6,4,9],[1,5,3,8]]);
+// Grid 3 — marks result
+buildGrid('grid-marks', 3, 4, [[5,8,3,7],[2,6,4,9],[1,5,3,8]], true);
 
-// Trace 4: bubble sort row 0 = [4,1,3,2]
+// Trace 4 — REPEAT/UNTIL bubble sort, row 0 = [4,1,3,2]
 (function(){
   let row=[4,1,3,2];
   const rows=[];
-  for(let pass=0;pass<=2;pass++){
-    for(let k=0;k<=2-pass;k++){
+  let Last=3;
+  let passNum=0;
+  let keepGoing=true;
+  while(keepGoing){
+    passNum++;
+    let Swap=false;
+    for(let Index=0;Index<=Last-1;Index++){
       const before=[...row];
-      const sw=row[k]>row[k+1];
-      if(sw){let t=row[k];row[k]=row[k+1];row[k+1]=t;}
+      const sw=row[Index]>row[Index+1];
+      if(sw){let t=row[Index];row[Index]=row[Index+1];row[Index+1]=t;Swap=true;}
       rows.push([
-        {fixed:true,val:String(pass)},
-        {fixed:true,val:String(k)},
-        {fixed:false,ans:String(before[k])},
-        {fixed:false,ans:String(before[k+1])},
+        {fixed:true,val:String(passNum)},
+        {fixed:true,val:String(Index)},
+        {fixed:false,ans:String(before[Index])},
+        {fixed:false,ans:String(before[Index+1])},
+        {fixed:false,ans:sw?'TRUE':'FALSE'},
         {fixed:false,ans:sw?'YES':'NO'},
         {fixed:false,ans:'['+row.join(', ')+']'}
       ]);
     }
+    Last--;
+    keepGoing=Swap && Last>0;
   }
-  buildTrace('trace-4',['pass','k','data[0][k]','data[0][k+1]','Swap?','Row 0 after'],rows);
+  buildTrace('trace-4',
+    ['Pass','Index','Data[0,Index]','Data[0,Index+1]','Swap set?','Swapped?','Row 0 after Index loop'],
+    rows);
 })();
 
-buildShortAnswers('sa-4', [
-  { q: 'Why does the comparison loop shrink with each pass (<code style="font-family:var(--mono)">k</code> goes to <code style="font-family:var(--mono)">2 - pass</code>)?',
-    a: 'After each pass, the largest unsorted element has bubbled to the end of the unsorted section. It no longer needs to be compared, so the window shrinks by 1 each pass.' },
-  { q: 'How many passes are needed to sort a row with 4 elements?',
-    a: '3 passes — in general, n elements require n − 1 passes.' },
-  { q: 'What is the role of <code style="font-family:var(--mono)">temp</code> in the swap? What would happen without it?',
-    a: 'temp holds the original value of data[i][k] before it is overwritten. Without temp, that value would be lost and the swap would be incorrect — both cells would end up holding data[i][k+1].' },
+buildShortAnswers('sa-4',[
+  { q:'Why does the algorithm use a <code style="font-family:var(--mono)">Swap</code> flag and stop early with REPEAT…UNTIL (NOT Swap) OR Last = 0?',
+    keywords:['early','stop','sorted','swap','flag','unnecessary','efficient','pass'],
+    a:'If no swaps occurred in a full pass (<code>Swap</code> remains FALSE), the array is already sorted. The REPEAT…UNTIL exits early rather than continuing unnecessary passes, which is more efficient.' },
+  { q:'What does <code style="font-family:var(--mono)">Last ← Last - 1</code> achieve after each pass?',
+    keywords:['last','end','bubble','largest','sorted','shrink','window','reduce'],
+    a:'After each pass the largest unsorted element has "bubbled" to position <code>Last</code>. Reducing Last means that position is excluded from the next pass — the sorted end of the row grows after every pass.' },
+  { q:'What is the role of <code style="font-family:var(--mono)">Temp</code> in the swap? What would happen without it?',
+    keywords:['temp','lost','overwritten','hold','store','swap','wrong'],
+    a:'Temp holds the original value of Data[I, Index] before it is overwritten. Without it that value is lost, so both positions would end up holding Data[I, Index+1] — the swap would be incorrect.' },
 ]);
 
-// Trace 5: linear search
+// Trace 5 — linear search
 (function(){
   const data=[[5,8,3],[7,2,6],[4,9,3]];
-  const target=3;
-  let found=false;
-  const rows=[];
-  for(let i=0;i<3;i++) for(let j=0;j<3;j++){
-    const v=data[i][j];
-    const eq=v===target;
-    if(eq) found=true;
+  const Target=3; let Found=false; const rows=[];
+  for(let I=0;I<3;I++) for(let J=0;J<3;J++){
+    const v=data[I][J]; const eq=v===Target;
+    if(eq) Found=true;
     rows.push([
-      {fixed:true,val:String(i)},
-      {fixed:true,val:String(j)},
+      {fixed:true,val:String(I)},
+      {fixed:true,val:String(J)},
       {fixed:false,ans:String(v)},
       {fixed:false,ans:eq?'YES':'NO'},
-      {fixed:false,ans:found?'TRUE':'FALSE'},
-      {fixed:false,ans:eq?`"Found at row ${i} col ${j}"`:'—'}
+      {fixed:false,ans:Found?'TRUE':'FALSE'},
+      {fixed:false,ans:eq?`Found at row ${I} col ${J}`:'—'}
     ]);
   }
-  buildTrace('trace-5',['i','j','data[i][j]','= target?','found','OUTPUT'],rows);
+  buildTrace('trace-5',['I','J','Data[I,J]','= Target?','Found','OUTPUT'],rows);
 })();
 
-buildShortAnswers('sa-5', [
-  { q: 'Why is <code style="font-family:var(--mono)">found</code> initialised to FALSE before the loops begin?',
-    a: 'It starts as FALSE to signal that the target has not been located yet. It only changes to TRUE when a match is detected during the search.' },
-  { q: 'Modify the pseudocode so the search STOPS after finding the first occurrence. What change would you make?',
-    a: 'Replace the FOR loops with WHILE loops that also check found = FALSE as a condition. This exits both loops as soon as the first match is found.' },
-  { q: 'If target = 99, what will the final output be and why?',
-    a: '"Value not found" — because 99 does not appear anywhere in data, so found remains FALSE after all 9 iterations, and the final IF block executes.' },
+buildShortAnswers('sa-5',[
+  { q:'Why is <code style="font-family:var(--mono)">Found</code> initialised to FALSE before the loops begin?',
+    keywords:['false','not found','before','initial','default','signal','flag'],
+    a:'It starts as FALSE to indicate the target has not been located yet. It is only set to TRUE when a match is detected. Without this, we cannot tell at the end whether anything was found.' },
+  { q:'Modify the pseudocode so the search STOPS after finding the first occurrence. What change would you make?',
+    keywords:['while','repeat','until','found','stop','exit','condition','first'],
+    a:'Replace the FOR loops with WHILE loops that also test <code>Found = FALSE</code> as a condition, so execution exits both loops as soon as the first match is found.' },
+  { q:'If Target = 99, what will the final output be and why?',
+    keywords:['not found','false','99','never','remains','false','9'],
+    a:'"Value not found" — 99 does not appear in Data, so Found remains FALSE after all 9 iterations. The final IF block then executes and outputs "Value not found".' },
 ]);
 </script>
 </body>
