@@ -1,4 +1,3 @@
-<!-- redeploy -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -171,6 +170,27 @@ table.trace td.t-correct::after{content:"✓";color:var(--correct);font-size:10p
 /* ── DIVIDER ── */
 .divider{height:1px;background:rgba(0,0,0,.08);margin:24px 0}
 
+/* ── EXPORT TOOLBAR ── */
+.export-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.export-btn{font-family:var(--sans);font-size:12px;font-weight:600;padding:5px 13px;border-radius:7px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:all .15s;white-space:nowrap}
+.export-btn:hover{filter:brightness(.9)}
+.export-btn.exp-student{background:#e0e7ff;color:#3730a3}
+.export-btn.exp-key{background:#dcfce7;color:#166534}
+.export-btn.exp-rag{background:#dbeafe;color:#1e40af}
+
+/* ── PRINT / PDF ── */
+@media print{
+  .topbar,.tab-bar,.export-bar,.check-btn,.sa-btn,.ch-check-btn,.ch-hint-btn,
+  .mode-toggle,nav{display:none!important}
+  .panel{display:block!important;break-after:page}
+  body{font-size:13px}
+  pre{white-space:pre-wrap}
+  .side-by-side{display:block}
+  .card{break-inside:avoid}
+  .trace-wrap{overflow:visible}
+  table.trace td.blank input{border-bottom:1px solid #999}
+}
+
 /* ── ANSWER MODE ── */
 body.answer-mode .cell-blank input{display:none}
 body.answer-mode .cell-blank .cell-answer{display:block}
@@ -194,9 +214,16 @@ body.answer-mode .pseudo-editor{background:#1e293b;border-color:#334155}
     <span class="subject-pill">CS · Grade 10</span>
     <span>2D Arrays — Pseudocode &amp; Python</span>
   </div>
-  <div class="mode-toggle">
-    <button class="mode-btn active" id="btn-student" onclick="setMode('student')">Student</button>
-    <button class="mode-btn" id="btn-teacher" onclick="setMode('teacher')">Answer Key</button>
+  <div style="display:flex;align-items:center;gap:10px">
+    <div class="export-bar">
+      <button class="export-btn exp-student" onclick="exportPDF('student')" title="Download your filled responses as PDF">⬇ My Responses</button>
+      <button class="export-btn exp-key" onclick="exportPDF('key')" title="Download full answer key as PDF">⬇ Answer Key</button>
+      <button class="export-btn exp-rag" onclick="exportPDF('rag')" title="Download self-reflection as PDF">⬇ Self-Check</button>
+    </div>
+    <div class="mode-toggle">
+      <button class="mode-btn active" id="btn-student" onclick="setMode('student')">Student</button>
+      <button class="mode-btn" id="btn-teacher" onclick="setMode('teacher')">Answer Key</button>
+    </div>
   </div>
 </header>
 
@@ -475,8 +502,8 @@ Grid[<span class="nm">1</span>,<span class="nm">0</span>]←<span class="nm">40<
     <div>
       <div class="card">
         <div class="exercise-title" style="color:var(--t3-fg)">Exercise 4.1 — Trace table (row 0 only)</div>
-        <div class="ex-label">Row 0 = <code style="font-family:var(--mono)">[4,1,3,2]</code> &nbsp;(I=0, Last starts at 3)</div>
-        <div class="hint" style="border-color:var(--t3-mid);color:var(--t3-fg);background:var(--t3-light);margin:8px 0">Show values at comparison moment, Swap flag, and row state after each pass.</div>
+        <div class="ex-label">Row 0 = <code style="font-family:var(--mono)">[4,1,3,2]</code> &nbsp;(I=0, Last starts at 3, decreases each pass)</div>
+        <div class="hint" style="border-color:var(--t3-mid);color:var(--t3-fg);background:var(--t3-light);margin:8px 0">Track Last (value at start of each pass), Index, both values compared, whether Swap was set, and the row state after each comparison.</div>
         <div class="trace-wrap"><table class="trace" id="trace-4"></table></div>
         <button class="check-btn student-only" id="btn-t4" style="background:var(--t3-mid);color:#fff" onclick="checkTrace('trace-4')">Check Answers</button>
         <p style="font-size:13px;color:var(--text2);margin-top:10px">Sorted row 0: &nbsp;
@@ -674,7 +701,9 @@ function setMode(m){
   document.getElementById('btn-student').classList.toggle('active',m==='student');
   document.getElementById('btn-teacher').classList.toggle('active',m==='teacher');
 }
+let currentTab = 0;
 function switchTab(idx){
+  currentTab = idx;
   const tabs=document.querySelectorAll('.tab-btn');
   tabs.forEach((b,i)=>{
     b.className='tab-btn';
@@ -685,31 +714,63 @@ function switchTab(idx){
 switchTab(0);
 
 // ════════════════════════════════════════
+// PDF EXPORT  (uses browser print dialog → Save as PDF)
+// ════════════════════════════════════════
+function exportPDF(type){
+  const wasTeacher = document.body.classList.contains('answer-mode');
+  const wasTab = currentTab;
+
+  if(type === 'rag'){
+    // Show only self-check panel
+    switchTab(5);
+    document.querySelectorAll('.panel').forEach((p,i)=>{
+      p.style.display = i===5 ? 'block' : 'none';
+    });
+    setTimeout(()=>{
+      window.print();
+      document.querySelectorAll('.panel').forEach(p=>{ p.style.display=''; });
+      switchTab(wasTab);
+    }, 250);
+    return;
+  }
+
+  // For student responses or answer key — show all panels
+  if(type === 'key') setMode('teacher');
+  else setMode('student');
+
+  document.querySelectorAll('.panel').forEach(p=>{ p.style.display='block'; });
+  setTimeout(()=>{
+    window.print();
+    document.querySelectorAll('.panel').forEach(p=>{ p.style.display=''; });
+    switchTab(wasTab);
+    setMode(wasTeacher ? 'teacher' : 'student');
+  }, 300);
+}
+
+// ════════════════════════════════════════
 // ALL-FILLED DETECTION → enable check btn
 // ════════════════════════════════════════
+// Walks up from btn to find its enclosing card/section,
+// then collects ALL text inputs (grid cells + trace table cells + free inputs).
 function updateCheckBtn(btnId){
-  // find all inputs in the same card
-  const btn=document.getElementById(btnId);
+  const btn = document.getElementById(btnId);
   if(!btn) return;
-  const card=btn.closest('.card,.exercise');
-  if(!card) return;
-  const inputs=[...card.querySelectorAll('input[type=text].student-only, textarea.pseudo-editor')];
-  const allFilled=inputs.every(i=>i.value.trim()!=='');
-  btn.classList.toggle('ready',allFilled);
+  // Find the nearest ancestor card or the side-by-side column that contains this btn
+  const card = btn.closest('.card, .exercise, .side-by-side > div');
+  if(!card){ btn.classList.add('ready'); return; }
+  // All visible text inputs — grid inputs AND trace-table inputs AND inline inputs
+  const inputs = [...card.querySelectorAll(
+    'input[type=text].student-only, table.trace td.blank input'
+  )];
+  if(inputs.length === 0){ btn.classList.add('ready'); return; }
+  const allFilled = inputs.every(i => i.value.trim() !== '');
+  btn.classList.toggle('ready', allFilled);
 }
 function updateSimpleBtn(btnId,inputId){
   const btn=document.getElementById(btnId);
   const inp=document.getElementById(inputId);
   if(!btn||!inp) return;
   btn.classList.toggle('ready',inp.value.trim()!=='');
-}
-
-// Register live listeners on trace tables and grids after build
-function registerCardListeners(cardEl,btnId){
-  if(!cardEl||!btnId) return;
-  cardEl.querySelectorAll('input[type=text].student-only').forEach(inp=>{
-    inp.addEventListener('input',()=>updateCheckBtn(btnId));
-  });
 }
 
 // ════════════════════════════════════════
@@ -782,7 +843,8 @@ function buildTrace(tableId,headers,rows,btnId){
         td.className='blank';td.dataset.answer=String(cell.ans).toLowerCase();
         const inp=document.createElement('input');
         inp.type='text';inp.placeholder='?';inp.maxLength=35;
-        inp.className='student-only';
+        // No student-only class — trace cells handle visibility via td.blank CSS
+        // But DO wire up the button-enable listener
         if(btnId) inp.addEventListener('input',()=>updateCheckBtn(btnId));
         td.appendChild(inp);
       }
@@ -1035,25 +1097,36 @@ buildGrid('grid-loop',3,3,[[1,2,3],[4,5,6],[7,8,9]],true,'btn-gloop');
 })();
 buildGrid('grid-marks',3,4,[[5,8,3,7],[2,6,4,9],[1,5,3,8]],true,'btn-gmarks');
 
-// Trace 4 — REPEAT/UNTIL bubble sort row 0=[4,1,3,2]
+// Trace 4 — REPEAT/UNTIL bubble sort row 0=[4,1,3,2] — includes Last column
 (function(){
-  let row=[4,1,3,2];const rows=[];let Last=3,passNum=0,keepGoing=true;
+  let row=[4,1,3,2];
+  const rows=[];
+  let Last=3, passNum=0, keepGoing=true;
   while(keepGoing){
-    passNum++;let Swap=false;
+    passNum++;
+    let Swap=false;
+    const LastAtPassStart=Last; // Last value at start of this pass
     for(let Index=0;Index<=Last-1;Index++){
       const before=[...row];
       const sw=row[Index]>row[Index+1];
       if(sw){let t=row[Index];row[Index]=row[Index+1];row[Index+1]=t;Swap=true;}
       rows.push([
-        {fixed:true,val:passNum},{fixed:true,val:Index},
-        {fixed:false,ans:before[Index]},{fixed:false,ans:before[Index+1]},
-        {fixed:false,ans:sw?'true':'false'},{fixed:false,ans:sw?'yes':'no'},
+        {fixed:true,val:passNum},
+        {fixed:true,val:LastAtPassStart},
+        {fixed:true,val:Index},
+        {fixed:false,ans:before[Index]},
+        {fixed:false,ans:before[Index+1]},
+        {fixed:false,ans:sw?'true':'false'},
+        {fixed:false,ans:sw?'yes':'no'},
         {fixed:false,ans:'['+row.join(',')+']'}
       ]);
     }
-    Last--;keepGoing=Swap&&Last>0;
+    Last--;
+    keepGoing=Swap&&Last>0;
   }
-  buildTrace('trace-4',['Pass','Index','Data[0,Index]','Data[0,Index+1]','Swap←TRUE?','Swapped?','Row 0 after pass'],rows,'btn-t4');
+  buildTrace('trace-4',
+    ['Pass','Last','Index','Data[0,Index]','Data[0,Index+1]','Swap←TRUE?','Swapped?','Row 0 after step'],
+    rows,'btn-t4');
 })();
 
 buildShortAnswers('sa-4',[
